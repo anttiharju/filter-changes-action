@@ -21,7 +21,7 @@ runs:
       id: check
       shell: sh
       env:
-        VERSION: "0.13.1"
+        VERSION: "0.13.2"
       run: |
         "$GITHUB_ACTION_PATH/scripts/cache.sh"
     - name: Generate target triple
@@ -38,14 +38,14 @@ runs:
       uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
       with:
         path: ${{ steps.check.outputs.directory }}/compare-changes
-        key: compare-changes_0.13.1_${{ steps.target.outputs.triple }}
+        key: compare-changes_0.13.2_${{ steps.target.outputs.triple }}
     - if: steps.check.outputs.installed != 'true' && steps.cache.outputs.cache-hit != 'true'
       name: Download executable
       working-directory: ${{ steps.check.outputs.directory }}
       shell: sh
       env:
         GH_TOKEN: ${{ github.token }}
-        VERSION: "0.13.1"
+        VERSION: "0.13.2"
         TARGET: ${{ steps.target.outputs.triple }}
       run: |
         "$GITHUB_ACTION_PATH/scripts/install.sh"
@@ -54,9 +54,9 @@ runs:
       env:
         BINARY: "${{ steps.check.outputs.directory }}/compare-changes"
         TARGET: ${{ steps.target.outputs.triple }}
-        MACOS_ARM_SHA: "8025d2e8c81324848f9763f96ebfc3e52899f84cd6a8d6d4ef29d7f417942e9e"
-        LINUX_ARM_SHA: "d658fdfd373b275558644c941096c31ccb1fba68abd831a017cf2c9cf8d7fa85"
-        LINUX_X64_SHA: "e1e930b2a9bcec46a031852686e8f3429f9b1dd4d20cdee53d5df4ce63735dd0"
+        MACOS_ARM_SHA: "b0d8dbb73add701b697cfde4b9ed0062f5378a00c0f50666936836bc414dbafa"
+        LINUX_ARM_SHA: "a7c558c271202d79eb95df2f4b5cd6688a2b65a718c3b34781ad79194ee111f8"
+        LINUX_X64_SHA: "bdec35e85ea719be757b6b815df971428a5fbdc93557c20c2aca7e0b44cee3aa"
       run: |
         "$GITHUB_ACTION_PATH/scripts/verify.sh"
     - name: Filter changes
